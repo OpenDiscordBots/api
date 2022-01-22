@@ -17,7 +17,7 @@ class GetTodoResponse(BaseModel):
     done: bool
 
 
-class AllTodosResponse(BaseModel):
+class UserTodosResponse(BaseModel):
     todos: list[GetTodoResponse]
 
 

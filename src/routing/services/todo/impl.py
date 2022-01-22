@@ -5,11 +5,11 @@ from ormar import NoMatch
 from src.impl.database import Todo, get_user
 
 from .models import (
-    AllTodosResponse,
     CreateTodoRequest,
     CreateTodoResponse,
     GetTodoResponse,
     TodoStatsResponse,
+    UserTodosResponse,
 )
 
 router = APIRouter(prefix="/todo", tags=["Todo"])
@@ -64,8 +64,8 @@ async def delete_todo(id: int) -> None:
     await todo.delete()
 
 
-@router.get("/all/{user_id}", response_model=AllTodosResponse)
-async def get_all_todos(user_id: int, include_done: bool = False) -> AllTodosResponse:
+@router.get("/users/{user_id}", response_model=UserTodosResponse)
+async def get_user_todos(user_id: int, include_done: bool = False) -> UserTodosResponse:
     """Get all Todo tasks for a given user."""
 
     user = await get_user(user_id)
@@ -75,7 +75,7 @@ async def get_all_todos(user_id: int, include_done: bool = False) -> AllTodosRes
     else:
         todos = await Todo.objects.filter(user=user.id, done=False).all()
 
-    return AllTodosResponse(
+    return UserTodosResponse(
         todos=[GetTodoResponse(id=todo.id, user_id=todo.user.id, task=todo.task, done=todo.done) for todo in todos]
     )
 
