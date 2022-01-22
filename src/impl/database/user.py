@@ -1,3 +1,4 @@
+from cachingutils import acached
 from fastapi import HTTPException
 from ormar import BigInteger, Boolean, Model, NoMatch
 
@@ -15,6 +16,7 @@ class User(Model):
     banned: bool = Boolean(default=False)
 
 
+@acached(timeout=15)
 async def get_user(user_id: int, strict: bool = False) -> User:
     try:
         user = await User.objects.first(id=user_id)
