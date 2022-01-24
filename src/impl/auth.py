@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from json import loads, dumps
+from json import dumps, loads
 from os import environ
 from secrets import token_hex
 

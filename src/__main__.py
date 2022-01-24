@@ -27,6 +27,7 @@ app.mount("/static", StaticFiles(directory="./src/ui/static"), name="static")
 app.include_router(router)
 app.include_router(ui_router)
 
+
 @app.on_event("startup")
 async def startup() -> None:
     await database.connect()

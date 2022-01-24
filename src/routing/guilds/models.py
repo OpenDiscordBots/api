@@ -7,3 +7,7 @@ class CreateGuildRequest(BaseModel):
 
 class GuildResponse(CreateGuildRequest):
     banned: bool
+
+
+class GuildConfigRequest(BaseModel):
+    data: dict

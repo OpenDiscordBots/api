@@ -47,6 +47,6 @@ async def get_guild_config(guild_id: int, service: str, strict: bool = False) ->
         config = await GuildConfig.objects.first(guild=guild_id, service=service)
     except NoMatch as e:
         guild = await get_guild(guild_id, strict=strict)
-        config = await GuildConfig(guild=guild.id, service=service, data={})
+        config = await GuildConfig(guild=guild.id, service=service, data={}).save()
 
     return config
