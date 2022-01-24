@@ -21,7 +21,7 @@ class Authenticator:
         self.oauth = DiscordOAuthClient(
             client_id=environ["CLIENT_ID"],
             client_secret=environ["CLIENT_SECRET"],
-            redirect_uri=environ["URL_BASE"] + "/oauth/callback",
+            redirect_uri=environ["URL_BASE"] + "/api/oauth/callback",
         )
         self.redis: Redis = from_url(environ["REDIS_URI"])
         self.owners = [int(owner) for owner in environ["OWNERS"].split(",")]
