@@ -37,6 +37,7 @@ watch = "uvicorn src.__main__:app --port 8080 --reload"
 lint = "black . && isort --profile black ."
 pre-commit = "pre-commit install"
 sass = "sass --watch src/ui/scss/style.scss:src/ui/static/style.css"
+upgrade = "alembic upgrade head"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

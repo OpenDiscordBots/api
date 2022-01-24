@@ -5,5 +5,5 @@ class CreateGuildRequest(BaseModel):
     id: int
 
 
-class CreateGuildResponse(CreateGuildRequest):
+class GuildResponse(CreateGuildRequest):
     banned: bool
