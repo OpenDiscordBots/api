@@ -1,5 +1,4 @@
 from fastapi import APIRouter, HTTPException
-from fastapi.routing import APIRoute
 from ormar import NoMatch
 
 from src.impl.database import Todo, get_user
