@@ -9,6 +9,7 @@ services:
     env_file: .env
     environment:
       DB_URI: postgresql://postgres:postgres@localhost:5432/odb
+      REDIS_URI: redis://redis:6379
 
   postgres:
     image: postgres
@@ -22,3 +23,9 @@ services:
       - ./pg_data:/var/lib/postgresql/data
     ports:
       - 5432:5432
+
+  redis:
+    image: redis
+    restart: always
+    ports:
+      - 6379:6379

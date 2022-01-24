@@ -17,6 +17,9 @@ uvicorn = "^0.17.0"
 psycopg2-binary = "^2.9.3"
 alembic = "^1.7.5"
 python-dotenv = "^0.19.2"
+starlette-discord = "^0.2.0"
+aioredis = "^2.0.1"
+"discord.py" = "^1.7.3"
 
 [tool.poetry.dev-dependencies]
 black = "^21.12b0"
