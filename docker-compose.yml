@@ -10,6 +10,12 @@ services:
     environment:
       DB_URI: postgresql://postgres:postgres@localhost:5432/odb
       REDIS_URI: redis://redis:6379
+    links:
+      - redis
+      - postgres
+    depends_on:
+      - redis
+      - postgres
 
   postgres:
     image: postgres
