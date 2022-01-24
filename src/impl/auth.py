@@ -45,7 +45,6 @@ class Authenticator:
 
     async def create_auth(self, user: User) -> str | None:
         if user.id not in self.owners:
-            print("nii")
             return
 
         token = token_hex(64)
