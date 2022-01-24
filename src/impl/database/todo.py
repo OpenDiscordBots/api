@@ -15,3 +15,4 @@ class Todo(Model):
     user: User = ForeignKey(User)
     task: str = String(max_length=512)
     done: bool = Boolean(default=False)
+    namespace: str = String(max_length=255, default="default")

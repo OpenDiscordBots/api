@@ -4,6 +4,7 @@ from pydantic import BaseModel
 class CreateTodoRequest(BaseModel):
     user_id: int
     task: str
+    namespace: str = "default"
 
 
 class CreateTodoResponse(BaseModel):
@@ -15,6 +16,7 @@ class GetTodoResponse(BaseModel):
     user_id: int
     task: str
     done: bool
+    namespace: str
 
 
 class UserTodosResponse(BaseModel):

@@ -34,21 +34,30 @@ async def get_todo(id: int) -> GetTodoResponse:
     except NoMatch:
         raise HTTPException(404, "Task not found")
 
-    return GetTodoResponse(id=todo.id, user_id=todo.user.id, task=todo.task, done=todo.done)
+    return GetTodoResponse(id=todo.id, user_id=todo.user.id, task=todo.task, done=todo.done, namespace=todo.namespace)
 
 
 @router.patch("/{id}", response_model=GetTodoResponse)
-async def update_todo(id: int, done: bool) -> GetTodoResponse:
+async def update_todo(id: int, done: bool = None, namespace: str = None) -> GetTodoResponse:
     """Update the completion status of a Todo task."""
+
+    if done is None and namespace is None:
+        raise HTTPException(422, "No update parameters provided")
 
     try:
         todo = await Todo.objects.first(id=id)
     except NoMatch:
         raise HTTPException(404, "Task not found")
 
-    todo = await todo.update(done=done)
+    kwargs = {}
+    if done is not None:
+        kwargs["done"] = done
+    if namespace is not None:
+        kwargs["namespace"] = namespace
 
-    return GetTodoResponse(id=todo.id, user_id=todo.user.id, task=todo.task, done=todo.done)
+    todo = await todo.update(**kwargs)
+
+    return GetTodoResponse(id=todo.id, user_id=todo.user.id, task=todo.task, done=todo.done, namespace=todo.namespace)
 
 
 @router.delete("/{id}", status_code=204)
@@ -75,7 +84,10 @@ async def get_user_todos(user_id: int, include_done: bool = False) -> UserTodosR
         todos = await Todo.objects.filter(user=user.id, done=False).all()
 
     return UserTodosResponse(
-        todos=[GetTodoResponse(id=todo.id, user_id=todo.user.id, task=todo.task, done=todo.done) for todo in todos]
+        todos=[
+            GetTodoResponse(id=todo.id, user_id=todo.user.id, task=todo.task, done=todo.done, namespace=todo.namespace)
+            for todo in todos
+        ]
     )
 
 
