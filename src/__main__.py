@@ -37,7 +37,7 @@ async def startup() -> None:
 async def ensure_auth(request: Request, call_next) -> Response:
     path = request.url.path
 
-    if path.startswith(("/docs", "/openapi.json", "/oauth", "/static")):
+    if path.startswith(("/docs", "/openapi.json", "/api/oauth", "/static")):
         request.state.oauth = authenticator
 
         return await call_next(request)
