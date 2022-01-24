@@ -20,6 +20,8 @@ python-dotenv = "^0.19.2"
 starlette-discord = "^0.2.0"
 aioredis = "^2.0.1"
 "discord.py" = "^1.7.3"
+aiofiles = "^0.8.0"
+Jinja2 = "^3.0.3"
 
 [tool.poetry.dev-dependencies]
 black = "^21.12b0"
@@ -34,6 +36,7 @@ start = "uvicorn src.__main__:app --host 0.0.0.0 --port 8080"
 watch = "uvicorn src.__main__:app --port 8080 --reload"
 lint = "black . && isort --profile black ."
 pre-commit = "pre-commit install"
+sass = "sass --watch src/ui/scss/style.scss:src/ui/static/style.css"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

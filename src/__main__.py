@@ -3,6 +3,7 @@ from os import environ
 
 from dotenv import load_dotenv
 from fastapi import FastAPI, Request, Response
+from fastapi.staticfiles import StaticFiles
 
 load_dotenv()
 
@@ -10,6 +11,7 @@ from src.impl.auth import Authenticator
 from src.impl.database import database
 
 from .routing import router
+from .ui import router as ui_router
 
 API_KEY = environ.get("API_KEY")
 
@@ -19,8 +21,11 @@ if not API_KEY:
 authenticator = Authenticator()
 
 app = FastAPI()
-app.include_router(router)
 
+app.mount("/static", StaticFiles(directory="./src/ui/static"), name="static")
+
+app.include_router(router)
+app.include_router(ui_router)
 
 @app.on_event("startup")
 async def startup() -> None:
@@ -31,7 +36,7 @@ async def startup() -> None:
 async def ensure_auth(request: Request, call_next) -> Response:
     path = request.url.path
 
-    if path.startswith(("/docs", "/openapi.json", "/oauth")):
+    if path.startswith(("/docs", "/openapi.json", "/oauth", "/static")):
         request.state.oauth = authenticator
 
         return await call_next(request)

@@ -1,0 +1,32 @@
+:root {
+  background-color: #1e1e1e;
+  font-family: "Open Sans", sans-serif;
+}
+
+body {
+  margin: 0;
+}
+
+nav {
+  height: 3rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #2c2c2c;
+}
+nav img {
+  height: 2.5rem;
+  border-radius: 100%;
+  margin-left: 1rem;
+}
+nav .nav-title {
+  margin-left: 1rem;
+}
+nav .nav-filler {
+  flex-grow: 1;
+}
+nav .user {
+  margin-right: 1rem;
+}
+
+/*# sourceMappingURL=style.css.map */
