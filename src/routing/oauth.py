@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Request, Response
 from fastapi.responses import RedirectResponse
 
-router = APIRouter(prefix="/oauth")
+router = APIRouter(prefix="/oauth", include_in_schema=False)
 
 
 @router.get("/callback")
