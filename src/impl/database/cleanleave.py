@@ -1,4 +1,4 @@
-from ormar import BigInteger, String, Model
+from ormar import BigInteger, Model, String
 
 from .metadata import database, metadata
 

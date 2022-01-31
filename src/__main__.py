@@ -22,10 +22,11 @@ authenticator = Authenticator()
 
 app = FastAPI()
 
-app.mount("/static", StaticFiles(directory="./src/ui/static"), name="static")
-
 app.include_router(router)
-app.include_router(ui_router)
+
+if environ.get("ENABLE_UI", "false") == "true":
+    app.include_router(ui_router)
+    app.mount("/static", StaticFiles(directory="./src/ui/static"), name="static")
 
 
 @app.on_event("startup")
