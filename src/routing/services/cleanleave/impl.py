@@ -5,7 +5,7 @@ from src.impl.database import JoinMessage
 
 from .models import JoinMessageModel
 
-router = APIRouter(prefix="/cleanleave")
+router = APIRouter(prefix="/cleanleave", tags=["CleanLeave"])
 
 
 @router.post("/guilds/{guild_id}/members/{member_id}", status_code=201)
