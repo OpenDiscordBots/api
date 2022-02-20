@@ -6,7 +6,6 @@ from fastapi import FastAPI, Request, Response
 
 load_dotenv()
 
-from src.impl.auth import Authenticator
 from src.impl.database import database
 
 from .routing import router
@@ -15,8 +14,6 @@ API_KEY = environ.get("API_KEY")
 
 if not API_KEY:
     raise Exception("API_KEY not set")
-
-authenticator = Authenticator()
 
 app = FastAPI()
 
@@ -32,18 +29,7 @@ async def startup() -> None:
 async def ensure_auth(request: Request, call_next) -> Response:
     path = request.url.path
 
-    if path.startswith(("/docs", "/openapi.json", "/api/oauth", "/static")):
-        request.state.oauth = authenticator
-
-        return await call_next(request)
-
-    if path.startswith("/ui"):
-        user = await authenticator.get_auth(request)
-
-        if not user:
-            return authenticator.oauth.redirect()
-
-        request.state.user = user
+    if path.startswith(("/docs", "/openapi.json")):
         return await call_next(request)
 
     auth = request.headers.get("Authorization")
