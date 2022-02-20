@@ -3,7 +3,6 @@ from os import environ
 
 from dotenv import load_dotenv
 from fastapi import FastAPI, Request, Response
-from fastapi.staticfiles import StaticFiles
 
 load_dotenv()
 
@@ -11,7 +10,6 @@ from src.impl.auth import Authenticator
 from src.impl.database import database
 
 from .routing import router
-from .ui import router as ui_router
 
 API_KEY = environ.get("API_KEY")
 
@@ -23,10 +21,6 @@ authenticator = Authenticator()
 app = FastAPI()
 
 app.include_router(router)
-
-if environ.get("ENABLE_UI", "false") == "true":
-    app.include_router(ui_router)
-    app.mount("/static", StaticFiles(directory="./src/ui/static"), name="static")
 
 
 @app.on_event("startup")
