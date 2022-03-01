@@ -9,5 +9,9 @@ class GuildResponse(CreateGuildRequest):
     banned: bool
 
 
+class UpdateGuildRequest(BaseModel):
+    banned: bool
+
+
 class GuildConfigRequest(BaseModel):
     data: dict

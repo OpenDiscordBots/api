@@ -4,7 +4,7 @@ from src.impl.database import Guild, GuildConfig
 from src.impl.database import get_guild as get_db_guild
 from src.impl.database import get_guild_config
 
-from .models import CreateGuildRequest, GuildConfigRequest, GuildResponse, UpdateGuildRequest
+from .models import CreateGuildRequest, GuildConfigRequest, GuildResponse
 
 router = APIRouter(prefix="/guilds", tags=["Guilds"])
 
@@ -36,7 +36,7 @@ async def get_guild(guild_id: int) -> GuildResponse:
 
 
 @router.patch("/{guild_id}", response_model=GuildResponse)
-async def update_guild(guild_id: int, request: UpdateGuildRequest) -> GuildResponse:
+async def update_guild(guild_id: int, request: CreateGuildRequest) -> GuildResponse:
     """
     Update a guild in the API.
 
